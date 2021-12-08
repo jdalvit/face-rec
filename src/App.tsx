@@ -17,7 +17,6 @@ import { useAppSelector } from "./state/store";
 import { boxesSelector, imageUrlSelector } from "./state/imageSlice/slice";
 
 const particlesOptions: ISourceOptions = {
-  fpsLimit: 60,
   particles: {
     links: {
       distance: 150,
