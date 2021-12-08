@@ -25,11 +25,6 @@ export const onSignin =
     // TODO: manage errors
   };
 
-export const onSignout = () => async (dispatch: AppDispatch) => {
-  dispatch(actions.clean());
-  // TODO: manage errors
-};
-
 export const onRegister =
   (name: string, email: string, password: string) =>
   async (dispatch: AppDispatch) => {

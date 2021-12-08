@@ -1,5 +1,7 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { FaceBox } from "../../models/FaceBox";
+import { imageSlice } from "../../state/imageSlice/slice";
+import { useAppDispatch } from "../../state/store";
 import "./FaceRecognition.css";
 import { mapRelativeProportionsToCssPercentages } from "./utils";
 
@@ -9,6 +11,10 @@ interface Props {
 }
 
 const FaceRecognition: FC<Props> = ({ imageUrl, boxes }) => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(imageSlice.actions.clean());
+  }, [dispatch]);
   return (
     <div className="relative center w-40-ns w-60-m w-90 mt2">
       <img src={imageUrl} alt="" className="image" />

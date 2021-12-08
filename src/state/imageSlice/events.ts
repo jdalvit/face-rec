@@ -13,7 +13,7 @@ export const onPictureSubmit =
     dispatch(actions.initLoading());
     const id = userSelector(getState())?.id;
 
-    const clarifaiData = await appRequest(
+    const clarifaiData = await appRequest<ClarifaiData>(
       "https://stormy-reaches-17086.herokuapp.com/imageurl",
       {
         method: "post",
@@ -23,7 +23,6 @@ export const onPictureSubmit =
         }),
       }
     );
-    // TODO: fix calculateFaceLocations, maybe move to back???
     dispatch(actions.setImageUrl(input));
     dispatch(actions.setBoxes(calculateFaceLocations(clarifaiData)));
 
@@ -40,22 +39,41 @@ export const onPictureSubmit =
       );
       dispatch(appDataSlice.actions.setUserEntries(entries));
     }
+    // TODO: manage errors
 
     dispatch(actions.finishLoading());
   };
 
-//Recieves data from clarifai's face detection API and returns an object with % strings used in CSS
-const calculateFaceLocations = (data: any): FaceBox[] => {
-  const clarifaiRegions = data.outputs[0].data.regions;
-  return clarifaiRegions.map(
-    (region: { region_info: { bounding_box: any } }) => {
-      const box = region.region_info.bounding_box;
-      return {
-        left: box.left_col,
-        top: box.top_row,
-        right: box.right_col,
-        bottom: box.bottom_row,
-      };
-    }
-  );
+interface ClarifaiData {
+  outputs?: output[];
+}
+
+interface output {
+  data?: {
+    regions?: region[];
+  };
+}
+
+interface region {
+  region_info: {
+    bounding_box: {
+      left_col: number;
+      right_col: number;
+      top_row: number;
+      bottom_row: number;
+    };
+  };
+}
+
+const calculateFaceLocations = (data: ClarifaiData): FaceBox[] => {
+  const clarifaiRegions = data?.outputs?.[0].data?.regions || [];
+  return clarifaiRegions.map((region) => {
+    const box = region.region_info.bounding_box;
+    return {
+      left: box.left_col,
+      top: box.top_row,
+      right: box.right_col,
+      bottom: box.bottom_row,
+    };
+  });
 };

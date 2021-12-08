@@ -29,9 +29,7 @@ export const imageSlice = createSlice({
     finishLoading: (state) => {
       state.isLoading = false;
     },
-    clean: (state) => {
-      state = initialState;
-    },
+    clean: (state) => initialState,
   },
 });
 
