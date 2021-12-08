@@ -61,7 +61,7 @@ export const Signin: FC = () => {
           <div className="lh-copy mt3">
             <p
               className="f6 link dim black pointer db"
-              onClick={() => dispatch(appDataSlice.actions.goToRegister)}
+              onClick={() => dispatch(appDataSlice.actions.goToRegister())}
             >
               Register
             </p>

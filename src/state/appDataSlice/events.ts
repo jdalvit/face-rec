@@ -19,9 +19,11 @@ export const onSignin =
         }),
       }
     );
-    dispatch(actions.setUser(user));
+    if (user.id) {
+      dispatch(actions.setUser(user));
+      dispatch(actions.goToHome());
+    }
     dispatch(actions.finishLoadingUser());
-    dispatch(actions.goToHome());
     // TODO: manage errors
   };
 
