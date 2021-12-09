@@ -9,7 +9,7 @@ const ImageLinkForm: FC = () => {
   return (
     <div>
       <p className="f3">
-        FaceBrain will detect faces in your pictures. Paste an image URL and try
+        FaceRec will detect faces in your pictures. Paste an image URL and try
         it out!
       </p>
       <div className="form pa4 br3 w-50-ns w-70-m shadow-5 center">

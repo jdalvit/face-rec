@@ -8,10 +8,14 @@ interface Props {
 const Rank: FC<Props> = ({ name, entries }) => {
   return (
     <>
-      <div className="white f4">
-        {name && `${name}, your number of entries is...`}
+      <div className="white">
+        {name && entries && (
+          <p className="f4">
+            {name}, your number of entries is...{" "}
+            <span className="f2">{entries}</span>
+          </p>
+        )}
       </div>
-      <div className="white f2">{entries && `${entries}`}</div>
     </>
   );
 };
