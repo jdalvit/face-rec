@@ -1,4 +1,5 @@
 import { appRequest } from "../../api/appRequest";
+import { ClarifaiData } from "../../models/ClarifaiData";
 import { FaceBox } from "../../models/FaceBox";
 import { appDataSlice, userSelector } from "../appDataSlice/slice";
 import { AppDispatch, RootState } from "../store";
@@ -43,27 +44,6 @@ export const onPictureSubmit =
 
     dispatch(actions.finishLoading());
   };
-
-interface ClarifaiData {
-  outputs?: output[];
-}
-
-interface output {
-  data?: {
-    regions?: region[];
-  };
-}
-
-interface region {
-  region_info: {
-    bounding_box: {
-      left_col: number;
-      right_col: number;
-      top_row: number;
-      bottom_row: number;
-    };
-  };
-}
 
 const calculateFaceLocations = (data: ClarifaiData): FaceBox[] => {
   const clarifaiRegions = data?.outputs?.[0].data?.regions || [];
